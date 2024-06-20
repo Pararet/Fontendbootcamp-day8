@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" name="" id="todo">  
+    <button id="submitButton">เพิ่ม todo</button> <!--onclick เหมือนเป็นการสร้าง event ให้กับฟังก์ชัน-->
+    <div id="result"></div>
+    <!--สามารถใช้ <ol> แทนสัญลักษณ์จุดดำบนหน้า HTML ,<ul> แทนตัวเลขบนหน้าจอได้ โดยใช้แทน <div> ได้-->
+    
+    <script>
+        const submitButton = document.getElementById('submitButton')
+        submitButton.addEventListener("click",addTodo) //เกิดไรขึ้นเพราะยังไม่มีการกำหนดฟังก์ชันการใช้งานเลย
+
+        function addTodo() {
+            const valueTodo = document.getElementById('todo').value //เป็นการกำหนดตัวแปรว่าอยากให้ข้อมูล id todo เป็นตัวแปรอะไร
+            // const p = document.createElement('p') //ให้มีการสร้าง element
+            // p.innerHTML = valueTodo
+            // const result = document.getElementById('result')
+            // result.appendChild(p) //appenChild เป็นการเพิ่มรูปให้สามารถเพิ่ม element นั้นๆได้
+            //                       //เมื่อเรามีการพิมพ์ข้อความลงใน input แล้วกดส่ง มันจะมีข้อความออกมาบนหน้า HTML
+            const result = document.getElementById("result");
+            //result.innerHTML += ~<li>${valueTodo}</li>~;
+        }
+
+        //เว็ปบางอาจมีข้อมูลที่ไม่ได้เปลี่ยนแปลงมากมายเช่น เบอร์โทรศัพท์ รหัส id จะเรียกว่า statics
+        //แต่ถ้าเป็นข้อมูลแบบ dynamic ข้อมูลจะมีการเปลี่ยนแปลงตลอดเวลา เช่น ข้อมูลสินค้าบนแอป lazada
+        //ข้อมูลแบบdynamic API จะมีส่วนสำคัญในการช่วย จะมี database เกี่ยวกับข้อมูลสินค้าต่างๆ 
+        //ฝั่ง client (มีทั้ง HTML CSS JS) เวลาจะเรียกใช้ database ข้อมูลสินค้า จะต้องใช้ API 
+        //ซึ่ง client เรียกขอข้อมูล... เมื่อคำเรียกขอส่งไปยัง sever แล้วจะไปดึง database แล้วส่งกลับมายัง client อีกที
+        //ซึ่งการแสดงผลของข้อมูลก็ขึ้นกับ HTML CSS JS ที่แต่เว็ปได้มีการเขียนไว้
+
+        fetch('https://jsonplaceholder.typicode.com/todos/1')//เว็ปไซต์ด้านใน คือ ปลายทางที่ API จะดึงข้อมูลว่าจะดึงมาจากที่ไหน
+      .then(response => response.json()) //json มันแค่ชื่อเว็ป เหมือนเป็น object เฉยๆ
+      .then(json => console.log(json)) //เมื่อดูไปยัง console จะมี object ออกมา อารมณ์เหมือนมีสินค้า จาก lazada ออกมา
+
+      // https://jsonplaceholder.typicode.com/todos/1 นำไปเสิร์จบน google ...
+      console.log(fetch('https://jsonplaceholder.typicode.com/todos/1'))//ผลลัพธ์ที่ออกมาจะเป็น promise คือมันเหมือนเป็นการหน่วงเวลาในการแสดงผลข้อมูลออกมา คือข้อมูลที่เก็บบางทีบางอาจอยู่เครื่องอื่นก็ได้ บางทีอาจหน่วงข้อมูลส่งมา
+                                                                        //ความหน่วง เช่น การใช้คำสั่ง lazada กว่าจะดึงข้อมูลออกมาจากฝั่ง server ได้ กว่าจะประมวลผล HTML CSS JS มันอาจมีการหน่วง
+                                                                        //promise เหมือนเป็นการสัญญาว่า ถ้าฉันเรียกใช้งานแล้ว คุณต้องส่งข้อมูลกลับมาให้เราด้วย
+      // then เหมือนเป็นการใช้งานหลังข้อมูลได้ส่งกลับมายัง client
+    </script>
+</body>
+</html>
